@@ -6,6 +6,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 const registerUser = asyncHandler(async (req, res) => {
   // get  user  detail from  frontend or postman
   const { fullName, email, username, password } = req.body;
+ // console.log(req.body);
   // validation  not empty
   if (
     [fullName, email, username, password].some((field) => field?.trim() === "")
@@ -21,14 +22,17 @@ const registerUser = asyncHandler(async (req, res) => {
   }
   //check image or avatar
    const avatarLocalPath=req.files?.avatar[0]?.path;
-  const coverImageLocalPath =req.files?.coverImage[0]?.path;
+  //const coverImageLocalPath =req.files?.coverImage[0]?.path;
+  //console.log(req.files)
+  let coverImageLocalPath;
+  if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage[0].path)
 
   if(!avatarLocalPath){
     throw new ApiError(400,"Avatar is required")
   }
   // upload them to cloudinary ,avatar
-  const  avatar = uploadOnCloudinary(avatarLocalPath)
-  const coverImage=uploadOnCloudinary(coverImageLocalPath)
+  const  avatar =  await uploadOnCloudinary(avatarLocalPath)
+  const coverImage= await uploadOnCloudinary(coverImageLocalPath)
   if(!avatar){
     throw new ApiError(400,"Avatar is required")
   }
