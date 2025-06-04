@@ -1,6 +1,7 @@
 // require  is use in commonjs but we use module it through an error
 // require('dotenv').config({path: './env'});
 import dotenv from "dotenv";
+import {app} from "./app.js"
 
 import connectDB from "./db/index.js";
 dotenv.config({
