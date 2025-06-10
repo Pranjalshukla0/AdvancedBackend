@@ -40,8 +40,8 @@ router
   .route("/avatar")
   .patch(verifyJWT, upload.single("avatar"), updateUserAvatar);
 router
-  .route("/coverImage")
-  .patch(verifyJWT, upload.single("cover"), updateCoverPage);
+  .route("/cover-image")
+  .patch(verifyJWT, upload.single("coverImage"), updateCoverPage);
 router.route("/c/:username").get(verifyJWT, getUserChannelProfile);
 router.route("/history").get(verifyJWT,getWatchedHistory);
 export default router;
